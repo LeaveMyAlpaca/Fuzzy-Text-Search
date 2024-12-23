@@ -1,23 +1,39 @@
-use std::{cmp, f32::consts::E};
+use std::{cmp, collections::HashMap, f32::consts::E};
 fn main() {
     let mut data: Vec<String> = Vec::new();
-    data.push("world".to_string());
-    data.push("wood".to_string());
-    data.push("wild".to_string());
-    data.push("rod".to_string());
-    data.push("from".to_string());
-    data.push("will".to_string());
-    data.push("who".to_string());
+    //  random not existing test phrases to test sorting
+    data.push("waafffff".to_string());
+    data.push("wiaald".to_string());
+    data.push("34erd".to_string());
+    data.push("aaaafrrewom".to_string());
+    data.push("aodwew".to_string());
     data.push("would".to_string());
-    data.push("good".to_string());
-    data.push("well".to_string());
+    data.push("goodaa".to_string());
+    data.push("welsdflaa".to_string());
+
+    data.push("wilddl".to_string());
+    data.push("whddo".to_string());
 
     let testValue = "wrlod";
+    let mut sortedData: Vec<sortStruct> = Vec::new();
 
     for text in data.iter() {
         let distance = WagnerFischerDistance(testValue.to_string(), text.to_string());
         println!("{} distance: {}", text, distance);
+        sortedData.push(sortStruct {
+            text: text.to_string(),
+            distance: distance,
+        });
     }
+    sortedData.sort_by(|a, b| a.distance.cmp(&b.distance));
+    println!("sorted data: \n ");
+    for data in sortedData {
+        println!("{} : {}", data.text, data.distance);
+    }
+}
+struct sortStruct {
+    distance: usize,
+    text: String,
 }
 
 fn WagnerFischerDistance(s1: String, s2: String) -> usize {
